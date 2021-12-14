@@ -1,8 +1,20 @@
 # Enhanced Container Observability
 
-![logo](logo.svg)
+![logo](logo.svg | width=100)
 
-An experiment with [Cadvisor](https://github.com/google/cadvisor), Prometheus, Grafana to give us enhanced observability of running containers
+An experiment with [Cadvisor](https://github.com/google/cadvisor), Prometheus, Grafana to give us enhanced and repeatable observability of running containers
+
+## TODO
+
+- [ ] setup basic docker-compose setup
+- [ ] wire up Prometheus to cadvisor
+- [ ] document memory usage of the stack
+- [ ] create some dummy containers to simulate load
+- [ ] clickops a grafana dashboard
+- [ ] IAC a grafana dashboard
+- [ ] create nginx proxy to wrap cadvisor + webpage to prevent CORS issues
+- [ ] create a quick and dirty visualisation dashboard
+- [ ] create a proper dashboard
 
 ## Licence
 
