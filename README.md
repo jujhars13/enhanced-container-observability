@@ -1,6 +1,6 @@
 # Enhanced Container Observability
 
-![logo](logo.svg){:class="img-responsive"}
+![logo](logo.svg){:height="100px"}
 
 An experiment with [Cadvisor](https://github.com/google/cadvisor), Prometheus, Grafana to give us enhanced and repeatable observability of running containers
 
