@@ -34,3 +34,33 @@ services:
       - ./backend/prometheus.yml:/etc/prometheus/prometheus.yml:ro
     depends_on:
       - cadvisor
+
+#############################
+## demo containers & load
+  nginx_demo_container1:
+    image: nginx:1.21
+    expose:
+      - "80/tcp"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  nginx_demo_container2:
+    image: nginx:1.21
+    expose:
+      - "80/tcp"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # vegeta_demo_load1:
+  #   image: peterevans/vegeta
+  #   entrypoint: ["sh", "-c", "echo 'GET http://demo_container1' | vegeta attack -rate=10 -duration=30s | tee results.bin | vegeta report"]
+  #   depends_on:
+  #     - demo_container1

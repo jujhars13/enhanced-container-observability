@@ -7,8 +7,8 @@ An experiment with [Cadvisor](https://github.com/google/cadvisor), Prometheus, G
 ## TODO
 
 - [x] setup basic docker-compose setup
-- [ ] wire up Prometheus to cadvisor
-- [ ] clickops a grafana dashboard
+- [x] wire up Prometheus to cadvisor
+- [ ] clickops together a test grafana dashboard
 - [ ] document memory usage of the stack
 - [ ] create some dummy containers to simulate load
 - [ ] IAC grafana dashboards
