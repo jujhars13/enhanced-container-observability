@@ -10,7 +10,7 @@ An experiment with [Cadvisor](https://github.com/google/cadvisor), Prometheus, G
 - We have a bunch of nginx containers as our sample apps and use [vegeta]() load testing tool to put continuous random dummy load onto them so we get nice looking graphs
 - Will will also explore custom hand-cranked HTML+JS dashboards that read data from `cadvisor/api`
 
-## To start
+## Getting started
 
 ```bash
 docker-compose up
@@ -20,13 +20,19 @@ Then visit Grafana on http://localhost:3000 (usr/pwd: `admin`/`admin`)
 
 You can also see cadvisor on http://localhost:8081 and prometheus on https://localhost:9090
 
+Grafana has a `docker-containers` dashboard pre-configured see `backend/grafana/provisioning/dashboards/docker-containers.json`
+
+## Screenshots
+
+![grafana dashboard](web/grafana-example.png)
+
 ## TODO
 
 - [x] setup basic docker-compose setup
 - [x] wire up Prometheus to cadvisor
 - [x] wire up grafana to prometheus
 - [x] create some dummy containers to simulate load
-- [x] IAC grafana dashboards
+- [x] IAC a grafana dashboard
 - [ ] create nginx proxy to wrap cadvisor + webpage to prevent CORS issues
 - [ ] create a quick and dirty custom visualisation dashboard
 - [ ] create a proper custom dashboard

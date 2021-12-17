@@ -33,7 +33,7 @@ services:
       org.label-schema.group: "observability"
 
   grafana:
-    image: grafana/grafana:6.7.2
+    image: grafana/grafana:8.2.6
     volumes:
       - ./backend/grafana/provisioning:/etc/grafana/provisioning
     environment:
