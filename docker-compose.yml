@@ -3,7 +3,6 @@ version: "3.8"
 services:
   cadvisor:
     image: gcr.io/cadvisor/cadvisor:latest
-    container_name: cadvisor
     ports:
       - 8081:8080
     expose:
@@ -14,57 +13,85 @@ services:
       - /sys:/sys:ro
       - /var/lib/docker/:/var/lib/docker:ro
       - /dev/disk/:/dev/disk:ro
-    depends_on:
-     - redis
-
-  redis:
-    image: redis:latest
-    expose:
-      - "6379/tcp"
-    container_name: redis
+    labels:
+      org.label-schema.group: "observability"
 
   prometheus:
     image: prom/prometheus:latest
-    container_name: prometheus
     ports:
       - 9090:9090
+    expose:
+      - "9090/tcp"
     command:
-     - --config.file=/etc/prometheus/prometheus.yml
+      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--web.enable-lifecycle"
     volumes:
-      - ./backend/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ./backend/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
     depends_on:
       - cadvisor
+    labels:
+      org.label-schema.group: "observability"
 
-#############################
-## demo containers & load
+  grafana:
+    image: grafana/grafana:6.7.2
+    volumes:
+      - ./backend/grafana/provisioning:/etc/grafana/provisioning
+      - ./backend/grafana/dashboards:/etc/grafana/dashboards
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_USERS_ALLOW_SIGN_UP=false
+    ports:
+      - 3000:3000
+    expose:
+      - "3000/tcp"
+    depends_on:
+      - prometheus
+    labels:
+      org.label-schema.group: "observability"
+
+  #############################
+  ## demo containers & load
   nginx_demo_container1:
     image: nginx:1.21
     expose:
       - "80/tcp"
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 40s
+    mem_limit: 512m
+    mem_reservation: 128M
+    cpus: 0.5
+    labels:
+      org.label-schema.group: "load-test"
 
   nginx_demo_container2:
     image: nginx:1.21
     expose:
       - "80/tcp"
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 40s
+    mem_limit: 512m
+    mem_reservation: 128M
+    cpus: 0.5
+    labels:
+      org.label-schema.group: "load-test"
 
   vegeta_demo_load1:
     image: jujhars13/vegeta:latest
     volumes:
       - ./backend/dummy_nginx_load.sh:/dummy_nginx_load.sh:ro
-    entrypoint: [ "/dummy_nginx_load.sh" ]
+    entrypoint: ["/dummy_nginx_load.sh"]
     environment:
       - URL=nginx_demo_container1:80
     depends_on:
       - nginx_demo_container1
+    labels:
+      org.label-schema.group: "load-test"
+
+  vegeta_demo_load2:
+    image: jujhars13/vegeta:latest
+    volumes:
+      - ./backend/dummy_nginx_load.sh:/dummy_nginx_load.sh:ro
+    entrypoint: ["/dummy_nginx_load.sh"]
+    environment:
+      - URL=nginx_demo_container2:80
+    depends_on:
+      - nginx_demo_container2
+    labels:
+      org.label-schema.group: "load-test"
