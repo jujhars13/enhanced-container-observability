@@ -53,7 +53,20 @@
   "graphTooltip": 0,
   "id": null,
   "iteration": 1617715580880,
-  "links": [],
+  "links": [
+    {
+      "asDropdown": false,
+      "icon": "external link",
+      "includeVars": false,
+      "keepTime": false,
+      "tags": [],
+      "targetBlank": false,
+      "title": "Original Source from grafana.com",
+      "tooltip": "",
+      "type": "link",
+      "url": "https://grafana.com/grafana/dashboards/14282"
+    }
+  ],
   "panels": [
     {
       "collapsed": false,
