@@ -7,11 +7,12 @@ sleep 10s
 echo "Generating load against ${URL}"
 
 while true; do
-    random=$(( ( RANDOM % 40 ) + 1 ))
+    random=$(((RANDOM % 40) + 1))
+    randomVegetaRate=$(((RANDOM % 8) + 1))
     echo "Sleeping for ${random}s"
     sleep "${random}s"
-    echo "GET http://${URL}" | \
-        vegeta attack -rate=4 -duration="${random}s" | \
-        tee results.bin | \
+    echo "GET http://${URL}" |
+        vegeta attack -rate="${randomVegetaRate}" -duration="${random}s" |
+        tee results.bin |
         vegeta report
 done
