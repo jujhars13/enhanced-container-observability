@@ -2,9 +2,9 @@
 
 ![logo](web/logo.png)
 
-An experiment with [Cadvisor](https://github.com/google/cadvisor), Prometheus, Grafana to give us enhanced and repeatable observability of running containers
+An experiment with [Cadvisor](https://github.com/google/cadvisor), Prometheus, Grafana to give us enhanced and repeatable observability of running containers.
 
-- Cadvisor is used to scrape system and docker metrics, it will surface a REST API, prometheus metrics endpoint and it's own rudimentary dashboard
+- Cadvisor is used to scrape system and docker metrics, it will surface a [REST API](https://github.com/google/cadvisor/blob/master/docs/api_v2.md), [prometheus metrics endpoint](https://github.com/google/cadvisor/blob/master/docs/storage/prometheus.md) and its own rudimentary dashboard
 - Prometheus scrapes and stores the data from `cadvisor/metrics`
 - Grafana will read data from prometheus and can be used to create dashboards
 - We have a bunch of nginx containers as our sample apps and use [vegeta](https://github.com/tsenart/vegeta) load testing tool to put continuous random dummy load onto them so we get nice looking graphs
