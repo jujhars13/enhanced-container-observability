@@ -36,7 +36,6 @@ services:
     image: grafana/grafana:6.7.2
     volumes:
       - ./backend/grafana/provisioning:/etc/grafana/provisioning
-      - ./backend/grafana/dashboards:/etc/grafana/dashboards
     environment:
       - GF_SECURITY_ADMIN_USER=admin
       - GF_SECURITY_ADMIN_PASSWORD=admin
