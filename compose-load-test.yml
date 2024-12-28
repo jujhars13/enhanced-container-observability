@@ -1,0 +1,48 @@
+
+services:
+
+  #############################
+  ## demo containers & load
+  nginx_demo_container1:
+    image: nginx:1.21
+    expose:
+      - "80/tcp"
+    mem_limit: 512m
+    mem_reservation: 128M
+    cpus: 0.5
+    labels:
+      org.label-schema.group: "load-test"
+
+  nginx_demo_container2:
+    image: nginx:1.21
+    expose:
+      - "80/tcp"
+    mem_limit: 512m
+    mem_reservation: 128M
+    cpus: 0.5
+    labels:
+      org.label-schema.group: "load-test"
+
+  vegeta_demo_load1:
+    image: jujhars13/vegeta:latest
+    volumes:
+      - ./backend/dummy_nginx_load.sh:/dummy_nginx_load.sh:ro
+    entrypoint: ["/dummy_nginx_load.sh"]
+    environment:
+      - URL=nginx_demo_container1:80
+    depends_on:
+      - nginx_demo_container1
+    labels:
+      org.label-schema.group: "load-test"
+
+  vegeta_demo_load2:
+    image: jujhars13/vegeta:latest
+    volumes:
+      - ./backend/dummy_nginx_load.sh:/dummy_nginx_load.sh:ro
+    entrypoint: ["/dummy_nginx_load.sh"]
+    environment:
+      - URL=nginx_demo_container2:80
+    depends_on:
+      - nginx_demo_container2
+    labels:
+      org.label-schema.group: "load-test"

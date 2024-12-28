@@ -13,7 +13,11 @@ An experiment with [Cadvisor](https://github.com/google/cadvisor), Prometheus, G
 ## Getting started
 
 ```bash
-docker-compose up
+# just the observability components
+docker compose up
+
+# if you want load on the system too
+docker compose -f compose.yml -f compose-load-test.yml up
 ```
 
 This will spin up all the containers.
