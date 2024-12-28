@@ -2,9 +2,9 @@
 services:
 
   #############################
-  ## demo containers & load
+  ## demo containers & load generation
   nginx_demo_container1:
-    image: nginx:1.21
+    image: nginx:mainline
     expose:
       - "80/tcp"
     mem_limit: 512m
@@ -12,9 +12,10 @@ services:
     cpus: 0.5
     labels:
       org.label-schema.group: "load-test"
+      watchtower.enable: "true"
 
   nginx_demo_container2:
-    image: nginx:1.21
+    image: nginx:mainline
     expose:
       - "80/tcp"
     mem_limit: 512m
@@ -22,6 +23,7 @@ services:
     cpus: 0.5
     labels:
       org.label-schema.group: "load-test"
+      watchtower.enable: "true"
 
   vegeta_demo_load1:
     image: jujhars13/vegeta:latest
@@ -34,6 +36,7 @@ services:
       - nginx_demo_container1
     labels:
       org.label-schema.group: "load-test"
+      watchtower.enable: "true"
 
   vegeta_demo_load2:
     image: jujhars13/vegeta:latest
@@ -46,3 +49,4 @@ services:
       - nginx_demo_container2
     labels:
       org.label-schema.group: "load-test"
+      watchtower.enable: "true"
