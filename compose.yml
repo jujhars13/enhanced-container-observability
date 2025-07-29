@@ -26,6 +26,7 @@ services:
     command:
       - "--config.file=/etc/prometheus/prometheus.yml"
       - "--web.enable-lifecycle"
+      - "--web.enable-remote-write-receiver" # allow remote writing to prometheus
     volumes:
       - ./backend/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
     depends_on:
