@@ -22,7 +22,7 @@ services:
     ports:
       - 9090:9090
     expose:
-      - "9090/tcp" # in case you want to query it directly
+      - "9090/tcp" # in case you want to query/push to it directly
     command:
       - "--config.file=/etc/prometheus/prometheus.yml"
       - "--web.enable-lifecycle"

@@ -11,16 +11,16 @@ global:
   query_log_file: query.log
   scrape_failure_log_file: fail.log
 
-# remote_write:
-#   - url: http://prometheus:/push
-#     name: remote_write_1
+remote_write:
+  - url: http://localhost:9090/api/v1/write
+    name: remote_write_1
 
 scrape_configs:
-- job_name: 'prometheus'  # Self-monitoring configuration
-  static_configs:
-    - targets: ['localhost:9090']  # Prometheus's own metrics endpoint
-- job_name: cadvisor
-  scrape_interval: 5s
-  static_configs:
-  - targets:
-    - cadvisor:8080
+  - job_name: 'prometheus'  # Self-monitoring configuration
+    static_configs:
+      - targets: ['localhost:9090']  # Prometheus's own metrics endpoint
+  - job_name: cadvisor
+    scrape_interval: 5s
+    static_configs:
+    - targets:
+      - cadvisor:8080
