@@ -22,6 +22,7 @@ docker compose -f compose.yml -f compose-load-test.yml up
 
 This will spin up all the containers.
 Then visit Grafana on http://localhost:3000 (usr/pwd: `admin`/`admin`)
+
 ### NB
 
 - You can also see cadvisor on http://localhost:8081 and prometheus on https://localhost:9090
